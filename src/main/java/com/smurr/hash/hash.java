@@ -4,7 +4,13 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-public abstract class hash {	
+/**
+ * @author stephen
+ * 
+ * Utility class to create a hash based on sha 256
+ *
+ */
+public class hash {	
 
 	/**
 	 * Generate a random salt
@@ -13,14 +19,14 @@ public abstract class hash {
 	 * @throws NoSuchAlgorithmException
 	 *             If the hashing algorithm is not found
 	 */
-	public String generateSalt() throws NoSuchAlgorithmException {
+	public static byte[] generateSalt() throws NoSuchAlgorithmException {
 		SecureRandom rand = new SecureRandom();
-		byte[] byteValue = new byte[20];
+		byte[] byteValue = new byte[8];
 
 		// generate random byte
 		rand.nextBytes(byteValue);
 
-		return createHash(byteValue.toString());
+		return byteValue;
 	}
 
 	/**
@@ -34,9 +40,14 @@ public abstract class hash {
 	 * @throws NoSuchAlgorithmException
 	 *             if unable to find hashing algorithm
 	 */
-	public String createHash(String variableToHash, String salt)
+	public static byte[] createHash(byte[] variableToHash, byte[] salt)
 			throws NoSuchAlgorithmException {
-		return createHash(variableToHash + salt);
+		byte[] concatResult = new byte[variableToHash.length + salt.length];
+		
+		System.arraycopy(variableToHash, 0, concatResult, 0, variableToHash.length);
+		System.arraycopy(salt, 0, concatResult, variableToHash.length, salt.length);
+		
+		return createHash(concatResult);		
 	}
 
 	/**
@@ -48,37 +59,13 @@ public abstract class hash {
 	 * @throws NoSuchAlgorithmException
 	 *             If unable to find hashing algorithm
 	 */
-	public String createHash(String variableToHash)
+	public static byte[] createHash(byte[] variableToHash)
 			throws NoSuchAlgorithmException {
 
 		MessageDigest digest = MessageDigest.getInstance("SHA-256");
-		digest.update(variableToHash.getBytes());
+		digest.update(variableToHash);
 
-		return byteToHex(digest.digest());
-
-	}
-
-	/**
-	 * Converts a byte array input into hex
-	 * 
-	 * @param convertValue
-	 *            byte value to convert into hex
-	 * @return String hex value of the byte
-	 */
-	private String byteToHex(byte[] convertValue) {
-		StringBuilder hexString = new StringBuilder();
-
-		for (int i = 0; i < convertValue.length; i++) {
-			String hex = Integer.toHexString(0xff & convertValue[i]);
-
-			if (hex.length() == 1) {
-				hexString.append('0');
-			}
-			hexString.append(hex);
-		}
-
-		return hexString.toString();
+		return digest.digest();
 
 	}
-
 }
