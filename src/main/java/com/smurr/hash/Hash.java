@@ -10,7 +10,7 @@ import java.security.SecureRandom;
  * Utility class to create a hash based on sha 256
  *
  */
-public class hash {	
+public class Hash {	
 
 	/**
 	 * Generate a random salt
