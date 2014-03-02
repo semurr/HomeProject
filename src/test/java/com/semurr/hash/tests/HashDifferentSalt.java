@@ -9,8 +9,15 @@ import org.junit.Test;
 
 import com.smurr.hash.Hash;
 
+/**
+ * @author stephen
+ *
+ */
 public class HashDifferentSalt {
 
+	/**
+	 * @throws NoSuchAlgorithmException
+	 */
 	@Test
 	public void differentSaltEquals() throws NoSuchAlgorithmException {
 		byte[] test = Hash.generateSalt();
