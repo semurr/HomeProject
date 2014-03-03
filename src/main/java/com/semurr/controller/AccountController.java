@@ -1,5 +1,7 @@
 package com.semurr.controller;
 
+import java.security.NoSuchAlgorithmException;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.semurr.account.UserAccount;
+import com.smurr.hash.Hash;
 
 @Controller
 public class AccountController {
@@ -21,10 +24,8 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value = "/account/create",method = RequestMethod.POST)
-	public ModelAndView createAccount(@ModelAttribute("UserAccount") UserAccount userAccount, ModelMap model){
-		
-		System.out.println(userAccount.getEmail());
-		
+	public ModelAndView createAccount(UserAccount userAccount, ModelMap model){
+				
 		return new ModelAndView("createAccount", model);
 		
 	}
