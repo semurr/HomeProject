@@ -1,4 +1,4 @@
-package com.semurr.controller;
+package com.semurr.account.controller;
 
 import java.security.NoSuchAlgorithmException;
 
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.semurr.account.UserAccount;
+import com.semurr.account.model.UserAccount;
 import com.smurr.hash.Hash;
 
 @Controller

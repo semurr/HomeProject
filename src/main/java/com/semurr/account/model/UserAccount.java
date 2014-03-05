@@ -1,4 +1,4 @@
-package com.semurr.account;
+package com.semurr.account.model;
 
 public class UserAccount {
 

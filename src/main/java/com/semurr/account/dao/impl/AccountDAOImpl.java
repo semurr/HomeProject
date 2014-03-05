@@ -1,7 +1,7 @@
-package com.semurr.DAO.Impl;
+package com.semurr.account.dao.impl;
 
-import com.semurr.DAO.AccountDAO;
-import com.semurr.account.UserAccount;
+import com.semurr.account.dao.AccountDAO;
+import com.semurr.account.model.UserAccount;
 
 public class AccountDAOImpl implements AccountDAO{
 

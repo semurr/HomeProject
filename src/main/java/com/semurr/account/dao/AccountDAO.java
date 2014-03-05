@@ -1,6 +1,6 @@
-package com.semurr.DAO;
+package com.semurr.account.dao;
 
-import com.semurr.account.UserAccount;
+import com.semurr.account.model.UserAccount;
 
 public interface AccountDAO {
 	
