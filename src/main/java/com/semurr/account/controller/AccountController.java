@@ -24,10 +24,9 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value = "/account/create",method = RequestMethod.POST)
-	public ModelAndView createAccount(UserAccount userAccount, ModelMap model){
+	public ModelAndView createAccount(UserAccount userAccount, ModelMap model){	
 				
-		return new ModelAndView("createAccount", model);
-		
+		return new ModelAndView("createAccount", model);		
 	}
 
 }
