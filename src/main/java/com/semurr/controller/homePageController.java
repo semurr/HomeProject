@@ -1,4 +1,4 @@
-package com.semurr.home.controller;
+package com.semurr.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

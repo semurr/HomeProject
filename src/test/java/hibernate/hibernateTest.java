@@ -5,9 +5,9 @@ import static org.junit.Assert.*;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.semurr.account.dao.AccountDAO;
-import com.semurr.account.dao.impl.AccountDAOImpl;
-import com.semurr.account.model.UserAccount;
+import com.semurr.dao.AccountDAO;
+import com.semurr.dao.impl.AccountDAOImpl;
+import com.semurr.model.UserAccount;
 
 public class hibernateTest {
 

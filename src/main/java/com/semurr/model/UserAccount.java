@@ -1,4 +1,4 @@
-package com.semurr.account.model;
+package com.semurr.model;
 
 import java.io.Serializable;
 
@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Range;
 
 @Entity
 @Table(name = "user")
@@ -14,13 +17,13 @@ public class UserAccount implements Serializable {
 
 	@Id
 	@GeneratedValue
-	@Column(name = "user_id", unique = true, nullable = false)
+	@Column(name = "user_id", unique = true, nullable = false)	
 	Integer	user_id;
 
 	@Column(name = "email", unique = true, nullable = false)
 	String	email;
 
-	@Column(name = "password", nullable = false)
+	@Column(name = "password", nullable = false)	
 	byte[]	password;
 
 	@Column(name = "salt", nullable = false)
@@ -29,8 +32,7 @@ public class UserAccount implements Serializable {
 	/**
 	 * @return the user_id
 	 */
-	public Integer getUser_id() {
-		System.out.println("1");
+	public Integer getUser_id() {		
 		return user_id;
 	}
 
@@ -38,8 +40,7 @@ public class UserAccount implements Serializable {
 	 * @param user_id
 	 *            the user_id to set
 	 */
-	public void setUser_id(Integer user_id) {
-		System.out.println("1a");
+	public void setUser_id(Integer user_id) {		
 		this.user_id = user_id;
 	}
 
