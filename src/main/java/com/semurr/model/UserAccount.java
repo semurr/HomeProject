@@ -24,7 +24,7 @@ public class UserAccount implements Serializable {
 	String	email;
 
 	@Column(name = "password", nullable = false)	
-	byte[]	password;
+	String	password;
 
 	@Column(name = "salt", nullable = false)
 	byte[]	salt;
@@ -62,7 +62,7 @@ public class UserAccount implements Serializable {
 	/**
 	 * @return the password
 	 */
-	public byte[] getPassword() {
+	public String getPassword() {
 		return password;
 	}
 
@@ -70,7 +70,7 @@ public class UserAccount implements Serializable {
 	 * @param password
 	 *            the password to set
 	 */
-	public void setPassword(byte[] password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 
