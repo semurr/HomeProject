@@ -16,7 +16,7 @@ public class hibernateTest {
 		
 		AccountDAO test = new AccountDAOImpl();
 		
-		UserAccount account = test.getAccountByName("test");
+		UserAccount account = test.getAccountByName("test@test.com");
 		
 		assertTrue("got the right account?", account.getUser_id().equals(1));		
 	}

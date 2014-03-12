@@ -23,31 +23,33 @@ public class AccountController {
 	AccountDAO accountDAO;
 	
 	@RequestMapping(value = "/account/create",method = RequestMethod.GET)
-	public ModelAndView getCreateAccountPage(ModelMap model){		
+	public ModelAndView getCreateAccountPage(ModelMap model){
 		
 		return new ModelAndView("createAccount", model);
 		
 	}
 	
 	@RequestMapping(value = "/account/create",method = RequestMethod.POST)
-	public ModelAndView createAccount(UserAccount userAccount, BindingResult result, ModelMap model){		
+	public ModelAndView createAccount(@ModelAttribute("UserAccount") @Valid UserAccount userAccount, BindingResult result, ModelMap model){	
 		
-		accountDAO = new AccountDAOImpl();
+		if(result.hasErrors()){
+			return new ModelAndView("createAccount");
+		} 
+		
+		accountDAO = new AccountDAOImpl();		
 				
 		try {
 			userAccount.setSalt(Hash.generateSalt());
-			System.out.println("salt = " + userAccount.getEmail());
-			System.out.println("salt = " + userAccount.getSalt());
-			System.out.println("passwrd = " + userAccount.getPassword());
-			userAccount.setPassword(Hash.createHash(userAccount.getPassword().getBytes(), userAccount.getSalt()).toString());
-			System.out.println("passwrd2 = " + userAccount.getPassword().length());
+			userAccount.setPassword(Hash.createHash(userAccount.getPassword().getBytes(), userAccount.getSalt()).toString());	
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
 		
-		accountDAO.addAcccount(userAccount);		
+		accountDAO.addAcccount(userAccount);
+		
+		model.addAttribute("accountName", userAccount.getEmail());
 				
-		return new ModelAndView("createAccount", model);		
+		return new ModelAndView("createAccountSuccess", model);		
 	}
 
 }

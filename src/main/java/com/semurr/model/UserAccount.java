@@ -7,8 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Range;
 
 @Entity
@@ -17,13 +18,15 @@ public class UserAccount implements Serializable {
 
 	@Id
 	@GeneratedValue
-	@Column(name = "user_id", unique = true, nullable = false)	
+	@Column(name = "user_id", unique = true, nullable = false)
 	Integer	user_id;
 
 	@Column(name = "email", unique = true, nullable = false)
+	@Email
 	String	email;
 
 	@Column(name = "password", nullable = false)	
+	@Size(min = 4, max = 15)
 	String	password;
 
 	@Column(name = "salt", nullable = false)

@@ -4,11 +4,13 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 import com.semurr.dao.AccountDAO;
 import com.semurr.model.UserAccount;
 import com.smurr.util.HibernateUtil;
 
+@Repository
 public class AccountDAOImpl implements AccountDAO{
 
 	public UserAccount getAccountByName(String email) {
@@ -29,21 +31,15 @@ public class AccountDAOImpl implements AccountDAO{
 		Session session = null;
 		Transaction transaction = null;
 		
-		try{
-		
-		session = HibernateUtil.getSessionFactory().openSession();
-		
-		System.out.println("sessionfactory?");
+		try{		
+		session = HibernateUtil.getSessionFactory().openSession();		
 		
 		//create a transaction for rollback
 		transaction = session.beginTransaction();
-		transaction.setTimeout(5);		
+		transaction.setTimeout(5);
 		
-		session.save(account);
-		
-		transaction.commit();
-		
-		System.out.println("pass");
+		session.save(account);		
+		transaction.commit();		
 		
 		} catch (RuntimeException e){
 			e.printStackTrace();						
@@ -52,8 +48,7 @@ public class AccountDAOImpl implements AccountDAO{
 		} finally{
 			if(session!=null){
 				session.close();
-			}
-			System.out.println("end");
+			}			
 		}
 	}
 
