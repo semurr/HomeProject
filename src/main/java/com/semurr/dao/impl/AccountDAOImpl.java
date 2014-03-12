@@ -33,6 +33,8 @@ public class AccountDAOImpl implements AccountDAO{
 		
 		session = HibernateUtil.getSessionFactory().openSession();
 		
+		System.out.println("sessionfactory?");
+		
 		//create a transaction for rollback
 		transaction = session.beginTransaction();
 		transaction.setTimeout(5);		
@@ -44,9 +46,9 @@ public class AccountDAOImpl implements AccountDAO{
 		System.out.println("pass");
 		
 		} catch (RuntimeException e){
-			e.printStackTrace();
-			transaction.rollback();			
+			e.printStackTrace();						
 			System.out.println("fail");
+			transaction.rollback();
 		} finally{
 			if(session!=null){
 				session.close();
