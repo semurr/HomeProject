@@ -18,7 +18,7 @@ public class hibernateTest {
 		
 		UserAccount account = test.getAccountByName("test");
 		
-		assertTrue("got the right account?", account.getUser_id().equals(3));		
+		assertTrue("got the right account?", account.getUser_id().equals(1));		
 	}
 
 }
