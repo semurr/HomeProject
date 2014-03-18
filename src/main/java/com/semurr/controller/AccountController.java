@@ -36,11 +36,10 @@ public class AccountController {
 			return new ModelAndView("createAccount");
 		} 
 		
-		accountDAO = new AccountDAOImpl();		
+		accountDAO = new AccountDAOImpl();
 				
-		try {
-			userAccount.setSalt(Hash.generateSalt());
-			userAccount.setPassword(Hash.createHash(userAccount.getPassword().getBytes(), userAccount.getSalt()).toString());	
+		try {			
+			userAccount = accountDAO.createAccount(userAccount, null);
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}

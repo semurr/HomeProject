@@ -26,7 +26,6 @@ public class UserAccount implements Serializable {
 	String	email;
 
 	@Column(name = "password", nullable = false)	
-	@Size(min = 4, max = 15)
 	String	password;
 
 	@Column(name = "salt", nullable = false)

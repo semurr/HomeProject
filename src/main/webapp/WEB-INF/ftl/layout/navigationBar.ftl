@@ -16,7 +16,7 @@
         		<ul class="dropdown-menu">
         			<li><a href="#"></a></li>
         			<li><a href="/HomeProject/account/create">Create Account</a></li>
-        			<li><a href="#">Something else here</a></li>
+        			<li><a href="/HomeProject/account/login">Login</a></li>
         			<li class="divider"></li>
         			<li><a href="#">Separated link</a></li>
         		</ul>
