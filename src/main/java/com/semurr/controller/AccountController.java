@@ -40,7 +40,8 @@ public class AccountController {
 				
 		try {
 			userAccount.setSalt(Hash.generateSalt());
-			userAccount.setPassword(Hash.createHash(userAccount.getPassword().getBytes(), userAccount.getSalt()).toString());	
+			userAccount.setPassword(new String(Hash.createHash(userAccount.getPassword().getBytes(), userAccount.getSalt())));	
+			System.out.println("lenght = " + userAccount.getPassword().length());
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
