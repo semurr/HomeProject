@@ -56,11 +56,9 @@ public class AccountDAOImpl implements AccountDAO{
 	}
 
 	public UserAccount createAccount(UserAccount account, byte[] salt) throws NoSuchAlgorithmException {
-		if(salt == null){
-			System.out.println("no salt");
+		if(salt == null){			
 			account.setSalt(Hash.generateSalt());
 		} else{
-			System.out.println("salt");
 			account.setSalt(salt);
 		}
 		

@@ -4,6 +4,8 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -16,10 +18,15 @@ import com.semurr.dao.AccountDAO;
 import com.semurr.dao.LoginDAO;
 import com.semurr.dao.impl.AccountDAOImpl;
 import com.semurr.dao.impl.LoginDAOImpl;
+import com.semurr.model.SessionData;
 import com.semurr.model.UserAccount;
 
 @Controller
+@Scope("session")
 public class LoginController {
+	
+	@Autowired
+	private SessionData sessionData;
 	
 	AccountDAO accountDAO;
 	
@@ -36,11 +43,13 @@ public class LoginController {
 		LoginDAO loginDAO = new LoginDAOImpl();
 		
 		try {
-			loginDAO.validateLogin(userAccount);
+			sessionData.setValidated(loginDAO.validateLogin(userAccount));
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		System.out.println("Correct password: " + sessionData.isValidated());
 		
 		
 		
