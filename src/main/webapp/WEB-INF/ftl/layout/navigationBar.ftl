@@ -15,8 +15,8 @@
         		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <b class="caret"></b></a>
         		<ul class="dropdown-menu">
         			<li><a href="#"></a></li>
-        			<li><a href="/HomeProject/account/create">Create Account</a></li>
-        			<li><a href="/HomeProject/account/login">Login</a></li>
+        			<li><a href=${rc.getContextPath()}/account/create>Create Account</a></li>
+        			<li><a href="${rc.getContextPath()}/account/login">Login</a></li>
         			<li class="divider"></li>
         			<li><a href="#">Separated link</a></li>
         		</ul>
