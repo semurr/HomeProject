@@ -12,7 +12,11 @@
         <div class="collapse navbar-collapse">          
           <ul class="nav navbar-nav navbar-right">        
         	<li class="dropdown">
-        		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <b class="caret"></b></a>
+        		<#if Session.sessionData.validated>
+        			<a href="#" class="dropdown-toggle" data-toggle="dropdown">Account Logged In <b class="caret"></b></a>
+        		<#else>
+        			<a href="#" class="dropdown-toggle" data-toggle="dropdown">Account<b class="caret"></b></a>
+        		</#if>        		
         		<ul class="dropdown-menu">
         			<li><a href="#"></a></li>
         			<li><a href=${rc.getContextPath()}/account/create>Create Account</a></li>
