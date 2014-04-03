@@ -1,6 +1,5 @@
 <#import "layout/defaultLayout.ftl" as layout>
-<@layout.defaultLayout>
-	
+<@layout.defaultLayout>	
 	<h1>Login</h1>
 	</br>
 
