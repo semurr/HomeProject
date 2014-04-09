@@ -2,6 +2,7 @@ package com.semurr.dao.impl;
 
 import java.security.NoSuchAlgorithmException;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -44,10 +45,13 @@ public class AccountDAOImpl implements AccountDAO{
 		session.save(account);		
 		transaction.commit();		
 		
-		} catch (RuntimeException e){
-			e.printStackTrace();						
-			System.out.println("fail");
+		} catch (HibernateException e){
+			String error = e.getCause().getMessage();
 			transaction.rollback();
+			
+			if(error.contains("Duplicate")){				
+				throw new HibernateException("Username already taken");				
+			}			
 		} finally{
 			if(session!=null){
 				session.close();

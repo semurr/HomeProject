@@ -13,7 +13,7 @@
           <ul class="nav navbar-nav navbar-right">        
         	<li class="dropdown">
         		<#if Session.sessionData.validated>
-        			<a href="#" class="dropdown-toggle" data-toggle="dropdown">Account Logged In <b class="caret"></b></a>
+        			<a href="#" class="dropdown-toggle" data-toggle="dropdown">Logged In <b class="caret"></b></a>
         		<#else>
         			<a href="#" class="dropdown-toggle" data-toggle="dropdown">Account<b class="caret"></b></a>
         		</#if>        		

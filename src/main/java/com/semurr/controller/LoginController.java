@@ -47,11 +47,7 @@ public class LoginController {
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
-		System.out.println("Correct password: " + sessionData.isValidated());
-		
-		
+		}	
 		
 		return new ModelAndView("login");
 		

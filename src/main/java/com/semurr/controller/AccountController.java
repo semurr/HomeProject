@@ -4,6 +4,7 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.validation.Valid;
 
+import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -39,19 +40,24 @@ public class AccountController {
 	@RequestMapping(value = "/account/create",method = RequestMethod.POST)
 	public ModelAndView createAccount(@ModelAttribute("UserAccount") @Valid UserAccount userAccount, BindingResult result, ModelMap model){	
 		
-		if(result.hasErrors()){
-			return new ModelAndView("createAccount");
-		} 
-		
 		accountDAO = new AccountDAOImpl();
 				
 		try {			
 			userAccount = accountDAO.createAccount(userAccount, null);
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
+		} catch (NoSuchAlgorithmException e) {		
+			
+			return new ModelAndView("createAccount", model);			
 		}
 		
-		accountDAO.addAcccount(userAccount);
+		try{
+			
+			accountDAO.addAcccount(userAccount);
+			
+		} catch (HibernateException e){			
+			model.addAttribute("error", e.getMessage());
+			
+			return new ModelAndView("createAccount", model);
+		}	
 		
 		model.addAttribute("accountName", userAccount.getEmail());
 				
