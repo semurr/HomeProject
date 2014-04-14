@@ -1,11 +1,13 @@
 package com.semurr.model;
 
+import java.io.Serializable;
+
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
 @Scope(value="session")
-public class SessionData {
+public class SessionData implements Serializable{
 
 	private boolean	validated	= false;
 	private String	userRole	= "none";

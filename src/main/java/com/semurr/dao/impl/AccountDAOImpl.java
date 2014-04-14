@@ -32,13 +32,16 @@ public class AccountDAOImpl implements AccountDAO{
 
 	public void addAcccount(UserAccount account) {
 		
+		System.out.println("add account" + account.getEmail());
+		
 		Session session = null;
 		Transaction transaction = null;
 		
-		try{		
+		try{
 		session = HibernateUtil.getSessionFactory().openSession();		
 		
 		//create a transaction for rollback
+		System.out.println("start transcation");
 		transaction = session.beginTransaction();
 		transaction.setTimeout(5);
 		
@@ -46,13 +49,19 @@ public class AccountDAOImpl implements AccountDAO{
 		transaction.commit();		
 		
 		} catch (HibernateException e){
+			System.out.println("Exception caught");
 			String error = e.getCause().getMessage();
-			transaction.rollback();
+			System.out.println(error);
+			
+			if(transaction != null){
+				transaction.rollback();				
+			}			
 			
 			if(error.contains("Duplicate")){				
 				throw new HibernateException("Username already taken");				
 			}			
 		} finally{
+			System.out.println("close session");
 			if(session!=null){
 				session.close();
 			}			

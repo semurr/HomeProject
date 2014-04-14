@@ -50,15 +50,17 @@ public class AccountController {
 		}
 		
 		try{
-			
+			System.out.println("starting add account");			
 			accountDAO.addAcccount(userAccount);
 			
-		} catch (HibernateException e){			
+		} catch (HibernateException e){
+			System.out.println("caught hibernate error");
 			model.addAttribute("error", e.getMessage());
 			
 			return new ModelAndView("createAccount", model);
 		}	
 		
+		System.out.println("account created");		
 		model.addAttribute("accountName", userAccount.getEmail());
 				
 		return new ModelAndView("createAccountSuccess", model);		
