@@ -7,12 +7,13 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.jboss.logging.Logger;
 import org.springframework.stereotype.Repository;
 
 import com.semurr.dao.AccountDAO;
+import com.semurr.hash.Hash;
 import com.semurr.model.UserAccount;
-import com.smurr.hash.Hash;
-import com.smurr.util.HibernateUtil;
+import com.semurr.util.HibernateUtil;
 
 @Repository
 public class AccountDAOImpl implements AccountDAO{
@@ -32,7 +33,9 @@ public class AccountDAOImpl implements AccountDAO{
 
 	public void addAcccount(UserAccount account) {
 		
-		System.out.println("add account" + account.getEmail());
+		Logger log = Logger.getLogger("InfoLoggin");
+		
+		log.info("add account" + account.getEmail());
 		
 		Session session = null;
 		Transaction transaction = null;
@@ -41,7 +44,7 @@ public class AccountDAOImpl implements AccountDAO{
 		session = HibernateUtil.getSessionFactory().openSession();		
 		
 		//create a transaction for rollback
-		System.out.println("start transcation");
+		log.info("start transcation");
 		transaction = session.beginTransaction();
 		transaction.setTimeout(5);
 		
@@ -49,19 +52,19 @@ public class AccountDAOImpl implements AccountDAO{
 		transaction.commit();		
 		
 		} catch (HibernateException e){
-			System.out.println("Exception caught");
+			log.info("Exception caught");
 			String error = e.getCause().getMessage();
-			System.out.println(error);
+			log.info(error);
 			
 			if(transaction != null){
 				transaction.rollback();				
 			}			
-			
+			 
 			if(error.contains("Duplicate")){				
 				throw new HibernateException("Username already taken");				
 			}			
 		} finally{
-			System.out.println("close session");
+			log.info("close session");
 			if(session!=null){
 				session.close();
 			}			

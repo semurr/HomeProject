@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import javax.validation.Valid;
 
 import org.hibernate.HibernateException;
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -19,10 +20,9 @@ import com.semurr.dao.AccountDAO;
 import com.semurr.dao.impl.AccountDAOImpl;
 import com.semurr.model.SessionData;
 import com.semurr.model.UserAccount;
-import com.smurr.hash.Hash;
 
 @Controller
-@Scope("session")
+@Scope("request")
 public class AccountController {
 	
 	@Autowired
@@ -38,7 +38,11 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value = "/account/create",method = RequestMethod.POST)
-	public ModelAndView createAccount(@ModelAttribute("UserAccount") @Valid UserAccount userAccount, BindingResult result, ModelMap model){	
+	public ModelAndView createAccount(@ModelAttribute("UserAccount") @Valid UserAccount userAccount, BindingResult result, ModelMap model){
+		
+		Logger log = Logger.getLogger("InfoLoggin");
+		
+		
 		
 		accountDAO = new AccountDAOImpl();
 				
@@ -50,17 +54,17 @@ public class AccountController {
 		}
 		
 		try{
-			System.out.println("starting add account");			
+			log.info("starting add account");			
 			accountDAO.addAcccount(userAccount);
 			
 		} catch (HibernateException e){
-			System.out.println("caught hibernate error");
+			log.info("caught hibernate error");
 			model.addAttribute("error", e.getMessage());
 			
 			return new ModelAndView("createAccount", model);
 		}	
 		
-		System.out.println("account created");		
+		log.info("account created");		
 		model.addAttribute("accountName", userAccount.getEmail());
 				
 		return new ModelAndView("createAccountSuccess", model);		

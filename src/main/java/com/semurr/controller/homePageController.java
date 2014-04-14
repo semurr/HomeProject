@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.semurr.model.SessionData;
 
 @Controller
-@Scope("session")
+@Scope("request")
 public class homePageController {
 	
 	@Autowired

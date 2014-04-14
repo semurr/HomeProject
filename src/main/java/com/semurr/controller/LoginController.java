@@ -4,6 +4,7 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.validation.Valid;
 
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -22,7 +23,7 @@ import com.semurr.model.SessionData;
 import com.semurr.model.UserAccount;
 
 @Controller
-@Scope("session")
+@Scope("request")
 public class LoginController {
 	
 	@Autowired
@@ -41,10 +42,13 @@ public class LoginController {
 	public ModelAndView submitLoginPage(@ModelAttribute("UserAccount") @Valid UserAccount userAccount, BindingResult result, ModelMap model){
 		
 		LoginDAO loginDAO = new LoginDAOImpl();
+		Logger log = Logger.getLogger("InfoLoggin");
 		
 		try {
+			log.info("start login");
 			sessionData.setValidated(loginDAO.validateLogin(userAccount));
 		} catch (NoSuchAlgorithmException e) {
+			log.info("login exception");
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
