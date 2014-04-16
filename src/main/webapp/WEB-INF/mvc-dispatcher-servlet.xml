@@ -25,5 +25,10 @@
       <property name="requestContextAttribute" value="rc"/>
       <property name="exposeSessionAttributes" value="true"/>    
     </bean>
+    
+    <!-- interceptors -->
+    <mvc:interceptors>
+      <bean class="com.semurr.interceptor.LogoutInterceptor"/>
+    </mvc:interceptors>
 	
 </beans>
