@@ -24,7 +24,15 @@
         		<ul class="dropdown-menu">
         			<li><a href="#"></a></li>
         			<li><a href=${rc.getContextPath()}/account/create>Create Account</a></li>
-        			<li><a href="${rc.getContextPath()}/account/login">Login</a></li>
+        			<#if Session.sessionData??>
+        				<#if Session.sessionData.validated>
+        					<li><a href="?logout=true">Logout</a></li>
+        				<#else>
+        					<li><a href="${rc.getContextPath()}/account/login">Login</a></li>
+        				</#if>
+        			<#else>
+        				<li><a href="${rc.getContextPath()}/account/login">Login</a></li>
+        			</#if>       			
         			<li class="divider"></li>
         			<li><a href="#">Separated link</a></li>
         		</ul>
