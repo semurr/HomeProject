@@ -13,7 +13,7 @@ import com.semurr.dao.AccountDAO;
 import com.semurr.dao.LoginDAO;
 import com.semurr.model.UserAccount;
 import com.semurr.hash.Hash;
-import com.semurr.util.HibernateUtil;
+import com.semurr.hibernate.HibernateUtil;
 
 @Repository
 public class LoginDAOImpl implements LoginDAO {

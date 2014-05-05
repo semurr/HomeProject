@@ -8,8 +8,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.semurr.dao.BlogDAO;
+import com.semurr.hibernate.HibernateUtil;
 import com.semurr.model.Blog;
-import com.semurr.util.HibernateUtil;
 
 public class BlogDAOImpl implements BlogDAO {
 
