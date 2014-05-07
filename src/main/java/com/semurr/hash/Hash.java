@@ -40,7 +40,7 @@ public class Hash {
 	 * @throws NoSuchAlgorithmException
 	 *             if unable to find hashing algorithm
 	 */
-	public static byte[] createHash(byte[] variableToHash, byte[] salt)
+	public static String createHash(byte[] variableToHash, byte[] salt)
 			throws NoSuchAlgorithmException {
 		byte[] concatResult = new byte[variableToHash.length + salt.length];
 
@@ -61,13 +61,24 @@ public class Hash {
 	 * @throws NoSuchAlgorithmException
 	 *             If unable to find hashing algorithm
 	 */
-	public static byte[] createHash(byte[] variableToHash)
+	public static String createHash(byte[] variableToHash)
 			throws NoSuchAlgorithmException {
 
 		MessageDigest digest = MessageDigest.getInstance("SHA-256");
 		digest.update(variableToHash);
 
-		return digest.digest();
+		return byteToHex(digest.digest());
 
+	}
+
+	public static String byteToHex(byte[] stringToModify) {
+		StringBuffer hexString = new StringBuffer();
+		for (int i = 0; i < stringToModify.length; i++) {
+			String hex = Integer.toHexString(0xff & stringToModify[i]);
+			if (hex.length() == 1)
+				hexString.append('0');
+			hexString.append(hex);
+		}
+		return hexString.toString();
 	}
 }

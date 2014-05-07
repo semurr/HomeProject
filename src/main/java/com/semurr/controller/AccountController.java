@@ -40,16 +40,13 @@ public class AccountController {
 	@RequestMapping(value = "/account/create",method = RequestMethod.POST)
 	public ModelAndView createAccount(@ModelAttribute("UserAccount") @Valid UserAccount userAccount, BindingResult result, ModelMap model){
 		
-		Logger log = Logger.getLogger("InfoLoggin");
-		
-		
+		Logger log = Logger.getLogger("InfoLoggin");		
 		
 		accountDAO = new AccountDAOImpl();
 				
 		try {			
 			userAccount = accountDAO.createAccount(userAccount, null);
 		} catch (NoSuchAlgorithmException e) {		
-			
 			return new ModelAndView("createAccount", model);			
 		}
 		
@@ -57,7 +54,7 @@ public class AccountController {
 			log.info("starting add account");			
 			accountDAO.addAcccount(userAccount);
 			
-		} catch (HibernateException e){
+		} catch (HibernateException e){			
 			log.info("caught hibernate error");
 			model.addAttribute("error", e.getMessage());
 			
