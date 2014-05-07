@@ -52,7 +52,7 @@ public class AccountDAOImpl implements AccountDAO{
 		transaction.commit();		
 		
 		} catch (HibernateException e){
-			log.info("Exception caught");
+			log.info("Exception caught when adding an account");
 			String error = e.getCause().getMessage();
 			log.info(error);
 			
