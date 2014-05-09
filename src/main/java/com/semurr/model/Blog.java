@@ -6,6 +6,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,8 +26,13 @@ public class Blog {
 	@Column(name = "subject", nullable = false)
 	private String	subject;	
 	
-	@Column(name = "author")
-	private String	author;
+	//@Column(name = "author")
+	//private int	author;
+	
+	
+	@OneToOne
+	@JoinColumn(name = "author")
+	private UserAccount	author;
 	
 	@Column(name = "time")
 	private Date	time;
@@ -77,7 +85,7 @@ public class Blog {
 	/**
 	 * @return the author
 	 */
-	public String getAuthor() {
+	public UserAccount getAuthor() {
 		return author;
 	}
 
@@ -85,7 +93,7 @@ public class Blog {
 	 * @param author
 	 *            the author to set
 	 */
-	public void setAuthor(String author) {
+	public void setAuthor(UserAccount author) {
 		this.author = author;
 	}
 
