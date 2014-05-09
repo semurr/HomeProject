@@ -24,9 +24,6 @@ public class BlogController {
 		//TODO: autowire
 		blogDAO = new BlogDAOImpl();
 		
-		//TODO: temp remove just to make right blog is diaplying
-		System.out.println(blog);
-		
 		Blog blogDetails = blogDAO.getBlogById(blog);
 		
 		model.addAttribute("blog", blogDetails);
