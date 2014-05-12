@@ -61,7 +61,9 @@ public class homePageController {
 			}
 		}
 		
-        BlogPaginationHelper blogPager = blogHelper.blogListLimitationHelper(blogPageNumber, blogs.size());
+        BlogPaginationHelper blogPager = blogHelper.blogListLimitationHelper(blogPageNumber, blogs.size());        
+        
+        model.addAttribute("pagination", blogPager);
         
         if(blogPager != null){
         	model.addAttribute("blogList", blogs.subList(blogPager.getStartPageNumber(), blogPager.getEndPageNumber()));

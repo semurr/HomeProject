@@ -44,6 +44,8 @@ public class blogHelper {
 			int blogListSize) {
 
 		BlogPaginationHelper BlogPagerHelper = new BlogPaginationHelper();
+		
+		BlogPagerHelper.setCurrentPageNumber(startPageNumber);
 
 		// grab the starting number
 		BlogPagerHelper.setStartPageNumber((blogPerPage * startPageNumber)
