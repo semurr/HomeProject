@@ -20,7 +20,7 @@ public class LogoutInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){	
 		
-		String requestLogout = request.getParameter(logout);
+		String requestLogout = request.getParameter(logout);	
 		
 		if(requestLogout != null){
 			if(Boolean.valueOf(requestLogout) == true){				

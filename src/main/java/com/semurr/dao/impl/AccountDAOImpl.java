@@ -12,8 +12,8 @@ import org.springframework.stereotype.Repository;
 
 import com.semurr.dao.AccountDAO;
 import com.semurr.hash.Hash;
+import com.semurr.hibernate.HibernateUtil;
 import com.semurr.model.UserAccount;
-import com.semurr.util.HibernateUtil;
 
 @Repository
 public class AccountDAOImpl implements AccountDAO{

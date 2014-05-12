@@ -1,4 +1,4 @@
-package com.semurr.util;
+package com.semurr.hibernate;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
