@@ -73,7 +73,7 @@ public class BlogDAOImpl implements BlogDAO {
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 
-			Query query = session.createQuery("from Blog");
+			Query query = session.createQuery("from Blog order by blog_id desc");
 			List<Blog> listOfBlogs = query.list();
 
 			return listOfBlogs;
