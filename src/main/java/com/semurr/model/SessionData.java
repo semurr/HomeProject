@@ -6,17 +6,25 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
-@Scope(value="session")
-public class SessionData implements Serializable{
+@Scope(value = "session")
+public class SessionData implements Serializable {
 
-	private boolean	validated	= false;
-	private String	userRole	= "none";
+	private boolean	validated		= false;
+	private int		userAccountId	= 0;
 
 	/**
-	 * @return the userRole
+	 * @return the userAccountId
 	 */
-	public String getUserRole() {
-		return userRole;
+	public int getUserAccountId() {
+		return userAccountId;
+	}
+
+	/**
+	 * @param userAccountId
+	 *            the userAccountId to set
+	 */
+	public void setUserAccountId(int userAccountId) {
+		this.userAccountId = userAccountId;
 	}
 
 	/**
@@ -32,14 +40,6 @@ public class SessionData implements Serializable{
 	 */
 	public void setValidated(boolean validated) {
 		this.validated = validated;
-	}
-
-	/**
-	 * @param userRole
-	 *            the userRole to set
-	 */
-	public void setUserRole(String userRole) {
-		this.userRole = userRole;
 	}
 
 }

@@ -71,6 +71,12 @@ public class AccountDAOImpl implements AccountDAO{
 		}
 	}
 
+	/*
+	 * basic helper method to create the account
+	 * 
+	 * (non-Javadoc)
+	 * @see com.semurr.dao.AccountDAO#createAccount(com.semurr.model.UserAccount, byte[])
+	 */
 	public UserAccount createAccount(UserAccount account, byte[] salt) throws NoSuchAlgorithmException {
 		if(salt == null){			
 			account.setSalt(Hash.generateSalt());
