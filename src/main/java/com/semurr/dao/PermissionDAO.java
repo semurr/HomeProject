@@ -1,5 +1,9 @@
 package com.semurr.dao;
 
+import java.util.List;
+
+import com.semurr.model.Permission;
+
 /**
  * DAO for user permission
  * 
@@ -9,6 +13,7 @@ package com.semurr.dao;
  */
 public interface PermissionDAO {
 	
-	public void addUser();
+	public void addPermission(Permission permissionDetail);
+	public List<Permission> getAllPermission();
 
 }
