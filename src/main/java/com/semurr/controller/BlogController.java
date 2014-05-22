@@ -1,5 +1,6 @@
 package com.semurr.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,13 +17,11 @@ import com.semurr.model.Blog;
 @Scope("request")
 public class BlogController {
 	
+	@Autowired
 	private BlogDAO blogDAO;
 	
 	@RequestMapping(value = "/blog/{blogId}",method = RequestMethod.GET)
 	public ModelAndView displayBlogInfoPage(@PathVariable("blogId") int blog, ModelMap model){
-		
-		//TODO: autowire
-		blogDAO = new BlogDAOImpl();
 		
 		Blog blogDetails = blogDAO.getBlogById(blog);
 		
