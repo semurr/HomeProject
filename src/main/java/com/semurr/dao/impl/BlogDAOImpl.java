@@ -6,11 +6,14 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.semurr.dao.BlogDAO;
 import com.semurr.hibernate.HibernateUtil;
 import com.semurr.model.Blog;
 
+@Repository
 public class BlogDAOImpl implements BlogDAO {
 
 	public void addBlog(Blog blog) {

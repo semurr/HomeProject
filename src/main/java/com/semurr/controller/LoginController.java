@@ -29,7 +29,8 @@ public class LoginController {
 	@Autowired
 	private SessionData sessionData;
 	
-	AccountDAO accountDAO;
+	@Autowired
+	private LoginDAO loginDAO;
 	
 	@RequestMapping(value = "/account/login",method = RequestMethod.GET)
 	public ModelAndView getLoginPage(){
@@ -39,9 +40,8 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "/account/login",method = RequestMethod.POST)
-	public ModelAndView submitLoginPage(@ModelAttribute("UserAccount") @Valid UserAccount userAccount, BindingResult result, ModelMap model){
+	public ModelAndView submitLoginPage(@ModelAttribute("UserAccount") @Valid UserAccount userAccount, BindingResult result, ModelMap model){		
 		
-		LoginDAO loginDAO = new LoginDAOImpl();
 		Logger log = Logger.getLogger("InfoLoggin");
 		
 		try {
