@@ -28,15 +28,11 @@ public class homePageController {
 	@Autowired
 	private SessionData sessionData;
 	
+	@Autowired
 	private BlogDAO blogDAO;
 	
 	@RequestMapping(value = "/",method = RequestMethod.GET)
-	public ModelAndView getHomePage(HttpServletRequest request, ModelMap model){
-		
-		
-		
-		//TODO: autowire
-		blogDAO = new BlogDAOImpl();
+	public ModelAndView getHomePage(HttpServletRequest request, ModelMap model){		
 		
 		//get blog
 		List<Blog> blogs = blogDAO.getAllBlogs();
@@ -70,9 +66,7 @@ public class homePageController {
         	model.addAttribute("pagerNumber", blogPager.getCurrentPageNumber());
         } else{        	
         	model.addAttribute("pagerNumber", blogPageNumber);        	
-        }
-		
-		
+        }	
 		
 		return new ModelAndView("index", model);		
 	}
