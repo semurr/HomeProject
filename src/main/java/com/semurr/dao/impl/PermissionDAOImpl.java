@@ -6,6 +6,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 
 import com.semurr.dao.PermissionDAO;
 import com.semurr.hibernate.HibernateUtil;
@@ -17,10 +18,11 @@ import com.semurr.model.UserAccount;
  * @author stephen
  *
  */
+@Repository
 public class PermissionDAOImpl implements PermissionDAO {
 
 	// add a new permission, pass in details
-	public void addPermission(Permission permissionDetail) {
+	public boolean addPermission(Permission permissionDetail) {
 
 		Session session = null;
 		Transaction transaction = null;
@@ -34,11 +36,13 @@ public class PermissionDAOImpl implements PermissionDAO {
 
 			session.save(permissionDetail);
 			transaction.commit();
+			return true;
 
 		} catch (HibernateException e) {
 			if (transaction != null) {
 				transaction.rollback();
 			}
+			return false;
 
 		} finally {
 			if (session != null) {
@@ -62,9 +66,38 @@ public class PermissionDAOImpl implements PermissionDAO {
 			return listOfPermission;
 
 		} catch (Exception e) {
+			System.out.println(e);
 			// exception caught do nothing
+		} finally {
+			if (session != null) {
+				session.close();
+			}
 		}
 		return null;
 		
+	}
+
+	public Permission getPermissionById(int permissionId) {
+		Session session = null;
+		Query query = null;
+
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+
+			query = session.createQuery("from Permission where permission_id = :permissionid");
+			query.setParameter("permissionid", permissionId);
+			List list = query.list();
+
+			return (Permission) list.get(0);
+
+		} catch (Exception e) {
+			System.out.println(e);
+
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return null;
 	}
 }

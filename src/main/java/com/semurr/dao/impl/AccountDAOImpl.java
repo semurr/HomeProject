@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.semurr.dao.AccountDAO;
 import com.semurr.hash.Hash;
 import com.semurr.hibernate.HibernateUtil;
+import com.semurr.model.Group;
 import com.semurr.model.UserAccount;
 
 @Repository
@@ -86,6 +87,32 @@ public class AccountDAOImpl implements AccountDAO{
 		
 		account.setPassword(new String(Hash.createHash(account.getPassword().getBytes(), account.getSalt())));		
 		return account;
+	}
+
+	public boolean addPermissionGroupToUser(UserAccount user, Group group) {
+		Session session = null;
+		Transaction transaction = null;
+
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			
+			user.getGroups().add(group);
+			
+			session.saveOrUpdate(user);
+			
+			transaction.commit();
+			
+			return true;		
+
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return false;
 	}
 
 }

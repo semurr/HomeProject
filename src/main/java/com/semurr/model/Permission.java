@@ -1,9 +1,15 @@
 package com.semurr.model;
 
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -16,14 +22,17 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "permission")
 public class Permission {
-	
+
 	@Id
 	@GeneratedValue
-	@Column(name = "permission_id", nullable = false, unique=true)
+	@Column(name = "permission_id", nullable = false, unique = true)
 	private int		permission_id;
-		
+
 	@Column(name = "permission_detail")
 	private String	permission_detail;
+
+	@ManyToMany(mappedBy = "permissions",fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	Set<Group>		groups;
 
 	/**
 	 * @return the permission_id
@@ -38,7 +47,7 @@ public class Permission {
 	 */
 	public void setPermission_id(int permission_id) {
 		this.permission_id = permission_id;
-	}	
+	}
 
 	/**
 	 * @return the permission_detail
@@ -53,6 +62,21 @@ public class Permission {
 	 */
 	public void setPermission_detail(String permission_detail) {
 		this.permission_detail = permission_detail;
+	}
+
+	/**
+	 * @return the groups
+	 */
+	public Set<Group> getGroups() {
+		return groups;
+	}
+
+	/**
+	 * @param groups
+	 *            the groups to set
+	 */
+	public void setGroups(Set<Group> groups) {
+		this.groups = groups;
 	}
 
 }
