@@ -1,6 +1,13 @@
 <#import "layout/defaultLayout.ftl" as layout>
 <@layout.defaultLayout>
 	<h1 align="center">News</h1>
+	<#if blogButton?? == true>
+	  <p align="center">
+	    <button type="button-center" class="btn btn-default">Add new Blog/News</button>
+	  </p>  	  	
+	<hr/>
+	</#if>
+	
 	<#if blogList??>
 	<#list blogList as blog>
 		<p>

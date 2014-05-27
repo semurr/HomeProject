@@ -1,8 +1,10 @@
 package com.semurr.dao.impl;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import com.semurr.dao.AccountDAO;
 import com.semurr.hash.Hash;
 import com.semurr.hibernate.HibernateUtil;
+import com.semurr.model.Blog;
 import com.semurr.model.Group;
 import com.semurr.model.UserAccount;
 
@@ -113,6 +116,30 @@ public class AccountDAOImpl implements AccountDAO{
 			}
 		}
 		return false;
+	}
+
+	public UserAccount getAccountById(int userId) {
+		Session session = null;
+		Query query = null;
+
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+
+			query = session.createQuery("from UserAccount where user_id = :userId");
+			query.setParameter("userId", userId);
+			
+			
+			return (UserAccount) query.uniqueResult();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return null;
 	}
 
 }

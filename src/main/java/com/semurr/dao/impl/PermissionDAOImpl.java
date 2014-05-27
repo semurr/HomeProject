@@ -53,7 +53,7 @@ public class PermissionDAOImpl implements PermissionDAO {
 	}
 
 	public List<Permission> getAllPermission() {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub		
 		
 		Session session = null;
 

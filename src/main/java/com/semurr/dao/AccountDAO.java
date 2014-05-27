@@ -11,5 +11,6 @@ public interface AccountDAO {
 	public void addAcccount(UserAccount account);
 	public UserAccount createAccount(UserAccount account, byte[] salt) throws NoSuchAlgorithmException;
 	public boolean addPermissionGroupToUser(UserAccount user, Group group);
+	public UserAccount getAccountById(int userId);
 
 }
