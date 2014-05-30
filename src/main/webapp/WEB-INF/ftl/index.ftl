@@ -3,7 +3,7 @@
 	<h1 align="center">News</h1>
 	<#if blogButton?? == true>
 	  <p align="center">
-	    <button type="button-center" class="btn btn-default">Add new Blog/News</button>
+	    <a href=${rc.getContextPath()}/blog/create class="btn btn-primary" role="button">Add new Blog/News</a>
 	  </p>  	  	
 	<hr/>
 	</#if>
