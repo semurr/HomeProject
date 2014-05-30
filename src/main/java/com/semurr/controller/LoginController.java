@@ -32,6 +32,9 @@ public class LoginController {
 	@Autowired
 	private LoginDAO loginDAO;
 	
+	@Autowired
+	private AccountDAO accountDAO;
+	
 	@RequestMapping(value = "/account/login",method = RequestMethod.GET)
 	public ModelAndView getLoginPage(){
 		
@@ -47,6 +50,7 @@ public class LoginController {
 		try {
 			log.info("start login");
 			sessionData.setValidated(loginDAO.validateLogin(userAccount));
+			sessionData.setUserAccountId(accountDAO.getAccountByName(userAccount.getEmail()).getUser_id());
 		} catch (NoSuchAlgorithmException e) {
 			log.info("login exception");
 			// TODO Auto-generated catch block

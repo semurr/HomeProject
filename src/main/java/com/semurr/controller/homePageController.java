@@ -14,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.semurr.dao.BlogDAO;
 import com.semurr.dao.impl.BlogDAOImpl;
+import com.semurr.enums.Permission;
+import com.semurr.helper.PermissionHelper;
 import com.semurr.helper.blogHelper;
 import com.semurr.model.Blog;
 import com.semurr.model.BlogPaginationHelper;
@@ -60,6 +62,13 @@ public class homePageController {
         BlogPaginationHelper blogPager = blogHelper.blogListLimitationHelper(blogPageNumber, blogs.size());        
         
         model.addAttribute("pagination", blogPager);
+        
+        // add add blog button
+        //check if session is null
+        if(PermissionHelper.validateUserPermission(sessionData.getUserAccountId(), Permission.BLOG_WRITE)){
+        	model.addAttribute("blogButton", true);        	
+        }
+        
         
         if(blogPager != null){
         	model.addAttribute("blogList", blogs.subList(blogPager.getStartPageNumber(), blogPager.getEndPageNumber()));

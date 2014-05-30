@@ -6,17 +6,23 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-import com.semurr.dao.BlogDAO;
+import com.semurr.dao.PermissionDAO;
 import com.semurr.hibernate.HibernateUtil;
 import com.semurr.model.Blog;
+import com.semurr.model.Permission;
+import com.semurr.model.UserAccount;
 
+/**
+ * @author stephen
+ *
+ */
 @Repository
-public class BlogDAOImpl implements BlogDAO {
+public class PermissionDAOImpl implements PermissionDAO {
 
-	public void addBlog(Blog blog) {
+	// add a new permission, pass in details
+	public boolean addPermission(Permission permissionDetail) {
 
 		Session session = null;
 		Transaction transaction = null;
@@ -28,13 +34,15 @@ public class BlogDAOImpl implements BlogDAO {
 			transaction = session.beginTransaction();
 			transaction.setTimeout(5);
 
-			session.save(blog);
+			session.save(permissionDetail);
 			transaction.commit();
+			return true;
 
 		} catch (HibernateException e) {
 			if (transaction != null) {
 				transaction.rollback();
 			}
+			return false;
 
 		} finally {
 			if (session != null) {
@@ -44,61 +52,43 @@ public class BlogDAOImpl implements BlogDAO {
 
 	}
 
-	public Blog getBlogById(int id) {
-
+	public List<Permission> getAllPermission() {
+		// TODO Auto-generated method stub		
+		
 		Session session = null;
-		Query query = null;
 
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 
-			query = session.createQuery("from Blog where blog_id = :blogid");
-			query.setParameter("blogid", id);
-			List list = query.list();
+			Query query = session.createQuery("from Permission");
+			List<Permission> listOfPermission = query.list();
 
-			return (Blog) list.get(0);
+			return listOfPermission;
 
 		} catch (Exception e) {
 			System.out.println(e);
-
+			// exception caught do nothing
 		} finally {
 			if (session != null) {
 				session.close();
 			}
 		}
 		return null;
+		
 	}
 
-	public List<Blog> getAllBlogs() {
-
-		Session session = null;
-
-		try {
-			session = HibernateUtil.getSessionFactory().openSession();
-
-			Query query = session.createQuery("from Blog order by blog_id desc");
-			List<Blog> listOfBlogs = query.list();
-
-			return listOfBlogs;
-
-		} catch (Exception e) {
-			// exception caught do nothing
-		}
-		return null;
-	}
-
-	public Blog getBlogByTitle(String title) {
+	public Permission getPermissionById(int permissionId) {
 		Session session = null;
 		Query query = null;
 
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 
-			query = session.createQuery("from Blog where title = :title");
-			query.setParameter("title", title);
+			query = session.createQuery("from Permission where permission_id = :permissionid");
+			query.setParameter("permissionid", permissionId);
 			List list = query.list();
 
-			return (Blog) list.get(0);
+			return (Permission) list.get(0);
 
 		} catch (Exception e) {
 			System.out.println(e);
