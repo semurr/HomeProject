@@ -1,6 +1,6 @@
 package com.semurr.model;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,12 +11,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 @Table(name = "blog")
 public class Blog {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue	
 	@Column(name = "blog_id", unique = true, nullable = false)
 	private int		blog_id;
 	
@@ -26,15 +28,11 @@ public class Blog {
 	@Column(name = "subject", nullable = false)
 	private String	subject;	
 	
-	//@Column(name = "author")
-	//private int	author;
-	
-	
 	@OneToOne
-	@JoinColumn(name = "author")
+	@JoinColumn(name = "author")	
 	private UserAccount	author;
 	
-	@Column(name = "time")
+	@Column(name = "time")	
 	private Date	time;
 
 	/**
