@@ -1,11 +1,18 @@
 package com.semurr.model;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -19,22 +26,41 @@ public class UserAccount implements Serializable {
 	@Id
 	@GeneratedValue
 	@Column(name = "user_id", unique = true, nullable = false)
-	Integer	user_id;
+	Integer		user_id;
 
 	@Column(name = "email", unique = true, nullable = false)
 	@Email
-	String	email;
+	String		email;
 
-	@Column(name = "password", nullable = false)	
-	String	password;
+	@Column(name = "password", nullable = false)
+	String		password;
 
 	@Column(name = "salt", nullable = false)
-	byte[]	salt;
+	byte[]		salt;
+
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	@JoinTable(name = "user_group", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = { @JoinColumn(name = "group_id") })
+	Set<Group>	groups;
+
+	/**
+	 * @return the groups
+	 */
+	public Set<Group> getGroups() {
+		return groups;
+	}
+
+	/**
+	 * @param groups
+	 *            the groups to set
+	 */
+	public void setGroups(Set<Group> groups) {
+		this.groups = groups;
+	}
 
 	/**
 	 * @return the user_id
 	 */
-	public Integer getUser_id() {		
+	public Integer getUser_id() {
 		return user_id;
 	}
 
@@ -42,7 +68,7 @@ public class UserAccount implements Serializable {
 	 * @param user_id
 	 *            the user_id to set
 	 */
-	public void setUser_id(Integer user_id) {		
+	public void setUser_id(Integer user_id) {
 		this.user_id = user_id;
 	}
 

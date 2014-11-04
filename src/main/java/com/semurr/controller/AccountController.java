@@ -28,6 +28,7 @@ public class AccountController {
 	@Autowired
 	private SessionData sessionData;
 	
+	@Autowired
 	AccountDAO accountDAO;
 	
 	@RequestMapping(value = "/account/create",method = RequestMethod.GET)
@@ -40,9 +41,7 @@ public class AccountController {
 	@RequestMapping(value = "/account/create",method = RequestMethod.POST)
 	public ModelAndView createAccount(@ModelAttribute("UserAccount") @Valid UserAccount userAccount, BindingResult result, ModelMap model){
 		
-		Logger log = Logger.getLogger("InfoLoggin");		
-		
-		accountDAO = new AccountDAOImpl();
+		Logger log = Logger.getLogger("InfoLoggin");	
 				
 		try {			
 			userAccount = accountDAO.createAccount(userAccount, null);

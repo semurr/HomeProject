@@ -29,7 +29,11 @@ public class LoginController {
 	@Autowired
 	private SessionData sessionData;
 	
-	AccountDAO accountDAO;
+	@Autowired
+	private LoginDAO loginDAO;
+	
+	@Autowired
+	private AccountDAO accountDAO;
 	
 	@RequestMapping(value = "/account/login",method = RequestMethod.GET)
 	public ModelAndView getLoginPage(){
@@ -39,14 +43,14 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "/account/login",method = RequestMethod.POST)
-	public ModelAndView submitLoginPage(@ModelAttribute("UserAccount") @Valid UserAccount userAccount, BindingResult result, ModelMap model){
+	public ModelAndView submitLoginPage(@ModelAttribute("UserAccount") @Valid UserAccount userAccount, BindingResult result, ModelMap model){		
 		
-		LoginDAO loginDAO = new LoginDAOImpl();
 		Logger log = Logger.getLogger("InfoLoggin");
 		
 		try {
 			log.info("start login");
 			sessionData.setValidated(loginDAO.validateLogin(userAccount));
+			sessionData.setUserAccountId(accountDAO.getAccountByName(userAccount.getEmail()).getUser_id());
 		} catch (NoSuchAlgorithmException e) {
 			log.info("login exception");
 			// TODO Auto-generated catch block

@@ -14,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.semurr.dao.BlogDAO;
 import com.semurr.dao.impl.BlogDAOImpl;
+import com.semurr.enums.Permission;
+import com.semurr.helper.PermissionHelper;
 import com.semurr.helper.blogHelper;
 import com.semurr.model.Blog;
 import com.semurr.model.BlogPaginationHelper;
@@ -28,15 +30,11 @@ public class homePageController {
 	@Autowired
 	private SessionData sessionData;
 	
+	@Autowired
 	private BlogDAO blogDAO;
 	
 	@RequestMapping(value = "/",method = RequestMethod.GET)
-	public ModelAndView getHomePage(HttpServletRequest request, ModelMap model){
-		
-		
-		
-		//TODO: autowire
-		blogDAO = new BlogDAOImpl();
+	public ModelAndView getHomePage(HttpServletRequest request, ModelMap model){		
 		
 		//get blog
 		List<Blog> blogs = blogDAO.getAllBlogs();
@@ -65,14 +63,19 @@ public class homePageController {
         
         model.addAttribute("pagination", blogPager);
         
+        // add add blog button
+        //check if session is null
+        if(PermissionHelper.validateUserPermission(sessionData.getUserAccountId(), Permission.BLOG_WRITE)){
+        	model.addAttribute("blogButton", true);        	
+        }
+        
+        
         if(blogPager != null){
         	model.addAttribute("blogList", blogs.subList(blogPager.getStartPageNumber(), blogPager.getEndPageNumber()));
         	model.addAttribute("pagerNumber", blogPager.getCurrentPageNumber());
         } else{        	
         	model.addAttribute("pagerNumber", blogPageNumber);        	
-        }
-		
-		
+        }	
 		
 		return new ModelAndView("index", model);		
 	}
